@@ -1,18 +1,27 @@
-import java.util.ArrayList;
-
 public class Main {
     public static void main(String[] args) {
-        Grafo ABC = new Grafo();
-    
-        Vertice A = ABC.agregarVertice("A");
-        Vertice B = ABC.agregarVertice("B");
-        Vertice C = ABC.agregarVertice("C");
-        Vertice D = ABC.agregarVertice("D");
-        Vertice E = ABC.agregarVertice("E");
-        Vertice F = ABC.agregarVertice("F");
-        Vertice G = ABC.agregarVertice("G");
-        Vertice H = ABC.agregarVertice("H");
-    
+        Grafo ABC = new Grafo(8); // Crear el grafo con n vértices
+        
+        // Agregar vértices
+        Vertice A = new Vertice("A");
+        Vertice B = new Vertice("B");
+        Vertice C = new Vertice("C");
+        Vertice D = new Vertice("D");
+        Vertice E = new Vertice("E");
+        Vertice F = new Vertice("F");
+        Vertice G = new Vertice("G");
+        Vertice H = new Vertice("H");
+        
+        ABC.agregarVertice(A);
+        ABC.agregarVertice(B);
+        ABC.agregarVertice(C);
+        ABC.agregarVertice(D);
+        ABC.agregarVertice(E);
+        ABC.agregarVertice(F);
+        ABC.agregarVertice(G);
+        ABC.agregarVertice(H);
+        
+        // Agregar aristas
         ABC.agregarArista(A, B, 2);
         ABC.agregarArista(A, F, 1);
         ABC.agregarArista(B, C, 2);
@@ -25,45 +34,11 @@ public class Main {
         ABC.agregarArista(E, G, 7);
         ABC.agregarArista(F, G, 5);
         ABC.agregarArista(G, H, 3);
-    
-        imprimirMatrizDeAdyacenciaBinaria(ABC);
-    }
-
-    public static void imprimirMatrizDeAdyacenciaBinaria(Grafo grafo) {
-        ArrayList<Vertice> vertices = grafo.getVertices();
-        int numVertices = vertices.size();
-    
-        boolean[][] matrizAdyacencia = new boolean[numVertices][numVertices];
-        int[][] pesos = new int[numVertices][numVertices];
-    
-        for (int i = 0; i < numVertices; i++) {
-            Vertice verticeActual = vertices.get(i);
-            ArrayList<Arista> aristas = verticeActual.getAristas();
-    
-            System.out.print(verticeActual.getNombre() + " está conectado a: ");
-            if(aristas.isEmpty()) {
-                System.out.println("ningún vértice");
-            } else {
-                for (Arista arista : aristas) {
-                    System.out.print(arista.getFin().getNombre() + " (Peso: " + arista.getPeso() + ") ");
-                    int indiceFin = vertices.indexOf(arista.getFin());
-                    matrizAdyacencia[i][indiceFin] = true;
-                    pesos[i][indiceFin] = arista.getPeso();
-                }
-                System.out.println();
-            }
-        }
-    
-        System.out.println("\nMatriz de adyacencia:");
-        for (int i = 0; i < numVertices; i++) {
-            for (int j = 0; j < numVertices; j++) {
-                if (matrizAdyacencia[i][j]) {
-                    System.out.print(pesos[i][j] + " ");
-                } else {
-                    System.out.print("0 ");
-                }
-            }
-            System.out.println();
-        }
+        
+        // Imprimir grafo
+        ABC.imprimirGrafo();
+        
+        // Ejecutar algoritmo de Dijkstra
+        ABC.dijkstra(A, H);
     }
 }
