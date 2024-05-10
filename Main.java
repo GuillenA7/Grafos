@@ -39,6 +39,6 @@ public class Main {
         ABC.imprimirGrafo();
         
         // Ejecutar algoritmo de Dijkstra
-        ABC.dijkstra(A, H);
+        ABC.dijkstra(A, G);
     }
 }
